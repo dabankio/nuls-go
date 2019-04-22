@@ -26,7 +26,7 @@ func (c *Client) CreateAccount(count int, password string) (info AccountList, er
 }
 
 // [余额] 查询本地所有账户总余额
-func (c *Client) Balance() (info AccountBalance, err error) {
+func (c *Client) WalletBalance() (info Balance, err error) {
 	option := "/balance"
 	err = c.call(http.MethodGet, accountPath, option, nil, &info)
 	return

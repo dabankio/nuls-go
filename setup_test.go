@@ -5,7 +5,7 @@ var apiTest *Client
 
 const (
 	testAccount  = "TTawEGqAXHyQwJL6pcw4n3boHwhcUZRS"
-	testPassword = "123456789qqq"
+	testPassword = ""
 	testHost     = ""
 )
 

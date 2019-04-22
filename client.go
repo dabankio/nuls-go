@@ -12,8 +12,6 @@ import (
 	"io"
 	"net/http"
 	"net/http/httputil"
-	"net/url"
-	"strings"
 	"time"
 
 	"github.com/pkg/errors"
@@ -148,13 +146,7 @@ func (c *Client) craftRequest(requestMethod, requestType, option string, param m
 		return
 	}
 
-	rawQuery := url.Values{}
-	for k, v := range param {
-		rawQuery[k] = extractValue(v)
-	}
-	if requestMethod == http.MethodGet {
-		URL = strings.Join([]string{URL, rawQuery.Encode()}, "?")
-	} else {
+	if requestMethod == http.MethodPost {
 		jsonData, _ := json.Marshal(param)
 		body = bytes.NewReader(jsonData)
 	}

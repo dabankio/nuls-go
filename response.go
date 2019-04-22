@@ -17,19 +17,19 @@ type AccountInfo struct {
 		Total      int `json:"total"`
 		Pages      int `json:"pages"`
 		List       []struct {
-			Address    string      `json:"address"`
-			Alias      string      `json:"alias"`
-			PubKey     string      `json:"pubKey"`
-			Extend     interface{} `json:"extend"`
-			CreateTime int64       `json:"createTime"`
-			Encrypted  bool        `json:"encrypted"`
-			Remark     string      `json:"remark"`
-			Ok         bool        `json:"ok"`
+			Address string `json:"address"`
+			Alias   string `json:"alias"`
+			PubKey  string `json:"pubKey"`
+			// Extend     interface{} `json:"extend"`
+			CreateTime int64  `json:"createTime"`
+			Encrypted  bool   `json:"encrypted"`
+			Remark     string `json:"remark"`
+			Ok         bool   `json:"ok"`
 		} `json:"list"`
 	} `json:"data"`
 }
 
-type AccountBalance struct {
+type Balance struct {
 	Success bool `json:"success"`
 	Data    struct {
 		Balance struct {

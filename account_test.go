@@ -13,14 +13,14 @@ func TestClient_GetAccount(t *testing.T) {
 }
 
 func TestClient_CreateAccount(t *testing.T) {
-	info, err := apiTest.CreateAccount(3, testPassword)
+	info, err := apiTest.CreateAccount(1, testPassword)
 	require.NoError(t, err, "api.GetAccount")
 	t.Log(info)
 }
 
 func TestClient_Balance(t *testing.T) {
-	info, err := apiTest.Balance()
-	require.NoError(t, err, "api.Balance")
+	info, err := apiTest.WalletBalance()
+	require.NoError(t, err, "api.WalletBalance")
 	t.Logf("%+v", info)
 }
 

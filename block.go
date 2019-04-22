@@ -1,6 +1,9 @@
 package nuls
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+)
 
 const (
 	blockPath = rootPath + "/block"
@@ -8,11 +11,8 @@ const (
 
 // 根据区块高度查询区块列表，包含区块打包的所有交易信息
 func (c *Client) Block(startHeight, size int) (info BlockInfo, err error) {
-	param := M{
-		"startHeight": startHeight,
-		"size":        size,
-	}
-	err = c.call(http.MethodGet, blockPath, "", param, &info)
+	option := fmt.Sprintf("?startHeight=%d&size=%d", startHeight, size)
+	err = c.call(http.MethodGet, blockPath, option, nil, &info)
 	return
 }
 
