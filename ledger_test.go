@@ -13,14 +13,14 @@ func TestClient_Transfer(t *testing.T) {
 }
 
 func TestClient_MultipleAddressTransfer(t *testing.T) {
-	inputs := []Inputs{{
+	inputs := []Input{{
 		Address:  "TTamZRpu8ksoUFwHbsF3cuCAu8Njo8QG",
 		Password: "",
 	}, {
 		Address:  "TTaseiEdKMrZi6SBLx14267CQtpo65GY",
 		Password: "",
 	}}
-	outPut := []OutPuts{{
+	outPut := []OutPut{{
 		ToAddress: "TTawEGqAXHyQwJL6pcw4n3boHwhcUZRS",
 		Amount:    AmountToInt64(10001),
 	}}

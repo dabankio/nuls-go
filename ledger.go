@@ -23,7 +23,7 @@ func (c *Client) Transfer(address, toAddress, password string, amount int64) (in
 }
 
 // /api/accountledger/multipleAddressTransfer 多地址转账
-func (c *Client) MultipleAddressTransfer(inputs []Inputs, outPuts []OutPuts) (info Transfer, err error) {
+func (c *Client) MultipleAddressTransfer(inputs []Input, outPuts []OutPut) (info Transfer, err error) {
 	param := M{
 		"inputs":  inputs,
 		"outputs": outPuts,

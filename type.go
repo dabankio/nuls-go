@@ -1,11 +1,11 @@
 package nuls
 
-type Inputs struct {
+type Input struct {
 	Address  string `json:"address"`
 	Password string `json:"password"`
 }
 
-type OutPuts struct {
+type OutPut struct {
 	ToAddress string `json:"toAddress"`
 	Amount    int64  `json:"amount"`
 }
