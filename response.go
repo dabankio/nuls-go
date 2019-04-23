@@ -131,3 +131,12 @@ type Transfer struct {
 		Value string `json:"value"`
 	} `json:"data"`
 }
+
+type ValidateContract struct {
+	Success bool `json:"success"`
+	Data    struct {
+		IsContractAddress bool `json:"isContractAddress"`
+		IsPayable         bool `json:"isPayable"`
+		IsNrc20           bool `json:"isNrc20"`
+	} `json:"data"`
+}
