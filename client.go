@@ -13,8 +13,6 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"time"
-
-	"github.com/pkg/errors"
 )
 
 const (
@@ -52,7 +50,7 @@ func (c *Client) call(requestMethod, requestType, option string, param map[strin
 	if c.BeforeRequest != nil {
 		err = c.BeforeRequest(requestType, option, outcome)
 		if err != nil {
-			err = errors.Wrap(err, "BeforeRequest error")
+			err = wrapErr(err, "BeforeRequest error")
 			return
 		}
 	}
@@ -67,7 +65,7 @@ func (c *Client) call(requestMethod, requestType, option string, param map[strin
 	URL, body := c.craftRequest(requestMethod, requestType, option, param)
 	req, err := http.NewRequest(requestMethod, URL, body)
 	if err != nil {
-		err = errors.Wrap(err, "http.NewRequest")
+		err = wrapErr(err, "http.NewRequest")
 		return
 	}
 	req.Header.Set("User-Agent", "nuls-api-client(Go)")
@@ -77,7 +75,7 @@ func (c *Client) call(requestMethod, requestType, option string, param map[strin
 		var reqDump []byte
 		reqDump, err = httputil.DumpRequestOut(req, true)
 		if err != nil {
-			err = errors.Wrap(err, "verbose mode req dump failed")
+			err = wrapErr(err, "verbose mode req dump failed")
 			return
 		}
 
@@ -92,7 +90,7 @@ func (c *Client) call(requestMethod, requestType, option string, param map[strin
 
 	res, err := c.coon.Do(req)
 	if err != nil {
-		err = errors.Wrap(err, "sending request")
+		err = wrapErr(err, "sending request")
 		return
 	}
 	defer res.Body.Close()
@@ -101,7 +99,7 @@ func (c *Client) call(requestMethod, requestType, option string, param map[strin
 		var resDump []byte
 		resDump, err = httputil.DumpResponse(res, true)
 		if err != nil {
-			err = errors.Wrap(err, "verbose mode res dump failed")
+			err = wrapErr(err, "verbose mode res dump failed")
 			return
 		}
 
@@ -110,7 +108,7 @@ func (c *Client) call(requestMethod, requestType, option string, param map[strin
 
 	var content bytes.Buffer
 	if _, err = io.Copy(&content, res.Body); err != nil {
-		err = errors.Wrap(err, "reading response")
+		err = wrapErr(err, "reading response")
 		return
 	}
 
@@ -122,7 +120,7 @@ func (c *Client) call(requestMethod, requestType, option string, param map[strin
 	var errRes ErrorResponse
 	err = json.Unmarshal(content.Bytes(), &errRes)
 	if err != nil {
-		err = errors.Wrap(err, "json unmarshal errRes")
+		err = wrapErr(err, "json unmarshal errRes")
 		return
 	}
 	if !errRes.Success && (errRes.Data.Code != "" || errRes.Data.Msg != "") {
@@ -132,7 +130,7 @@ func (c *Client) call(requestMethod, requestType, option string, param map[strin
 
 	err = json.Unmarshal(content.Bytes(), outcome)
 	if err != nil {
-		err = errors.Wrap(err, "json unmarshal outcome")
+		err = wrapErr(err, "json unmarshal outcome")
 		return
 	}
 
